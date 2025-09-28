@@ -2,14 +2,14 @@
 
 ## Introducción
 
-Bienvenido al repositorio de evaluación práctica de Laravel. Este repositorio contiene tres casos prácticos diseñados para evaluar tus habilidades en el desarrollo con Laravel. Cada caso está diseñado para medir diferentes aspectos del framework, desde la implementación básica de CRUD hasta el uso de autenticación con Sanctum y la aplicación de la Arquitectura Hexagonal.
+Bienvenido al repositorio de evaluación práctica de Laravel. Este repositorio contiene tres casos prácticos diseñados para evaluar tus habilidades en el desarrollo con Laravel. Cada caso está diseñado para medir diferentes aspectos del framework, desde la implementación básica de CRUD hasta el uso de autenticación con Sanctum y la aplicación de manejo de roles, areas y asistencias.
 
 ## Instrucciones Generales
 
 1. Clona este repositorio en tu máquina local:
 ```bash
-git clone https://github.com/tu-repositorio/examen-laravel.git
-cd examen-laravel
+git clone https://github.com/KevinMO05/Technical-Exam-Laravel.git
+cd Technical-Exam-Laravel
 ```
 2. Instala las dependencias necesarias:
 ```bash
@@ -29,10 +29,6 @@ Este repositorio contiene tres casos prácticos:
 
 1. **Caso 1** : Implementación básica de un CRUD sin autenticación.
 2. **Caso 2** : Implementación de un CRUD con autenticación usando Sanctum, paginación, filtrado y ordenamiento.
-3. **Caso 3** : Implementación de un CRUD aplicando la Arquitectura Hexagonal.
+3. **Caso 3** : Implementación de un CRUD aplicando manejo de roles, areas y asistencias.
 
 Cada caso tiene su propia rama (_caso-1_, _caso-2_, _caso-3_) con un README detallado que describe los requisitos y las historias de usuario correspondientes.
-
-## Tiempo Estimado
-
-El tiempo total estimado para completar los tres casos es de 3 horas y 30 minutos a 4 horas . Asegúrate de gestionar tu tiempo adecuadamente.
