@@ -10,7 +10,9 @@ class Book extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'description', 'price', 'author_id'];
-
+    protected $casts = [
+        'price' => 'float',
+    ];
     public function author() {
         return $this -> belongsTo(Author::class);
     }

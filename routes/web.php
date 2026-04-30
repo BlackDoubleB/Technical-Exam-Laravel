@@ -8,9 +8,9 @@ Route::get('/', function () {
 });
 
 Route::get('/libros/create', [LibroController::class, 'create']); // crear formulario
-Route::post('/libros', [LibroController::class, 'store']); // guardar
+Route::post('/libros/register', [LibroController::class, 'register'])->name('book.register'); // guardar
 
-Route::get('/libros', [LibroController::class, 'index']); //listar
+Route::get('/libros', [LibroController::class, 'index'])->name('book.index'); //listar
 
 Route::get('/libros/{id}', [LibroController::class, 'show']); //detalle
 
