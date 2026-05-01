@@ -5,27 +5,36 @@ Create
 @endsection
 
 @section('main')
-<h1 class="font-bold text-2xl">Register Book</h1>
-<div class="flex flex-col">
-    <form class="max-w-sm mx-auto" action="{{ route('books.store') }}" method="POST">
-        @csrf
-        <div class="mb-5 mt-20">
+
+ <form class=" max-w-sm mx-auto bg-neutral-200 px-10 py-5 rounded-2xl shadow-2xl"  action="{{ route('books.store') }}" method="POST">
+       <h1 class="font-bold text-2xl text-center">Register</h1>
+    @csrf
+         <div class="mb-5 mt-10">
             <label for="title" class="block mb-2.5 text-sm font-medium text-heading">Book</label>
             <input name="title" type="text" id="title"
                 class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                 placeholder="Name book" required />
+            @error('title')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mb-5">
             <label for="price" class="block mb-2.5 text-sm font-medium text-heading">Price</label>
             <input name="price" type="number" id="price" step="0.01"
                 class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                 placeholder="0.00" required />
+                @error('price')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mb-5">
             <label for="description" class="block mb-2.5 text-sm font-medium text-heading">Description</label>
             <input name="description" type="text" id="description"
                 class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                 placeholder="Description" required />
+                @error('description')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mb-5">
             <label for="authors" class="block mb-2.5 text-sm font-medium text-heading">Author</label>
@@ -37,9 +46,11 @@ Create
                 @endforeach
 
             </select>
+            @error('author_id')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
         </div>
         <button type="submit"
             class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Submit</button>
     </form>
-</div>
 @endsection

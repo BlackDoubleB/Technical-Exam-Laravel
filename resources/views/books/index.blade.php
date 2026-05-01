@@ -5,8 +5,15 @@ Books
 @endsection
 
 @section('main')
-<h1 class="text-2xl font-bold">Books</h1>
+
 <div class="flex flex-col space-y-5">
+   <div class="flex justify-between items-center">
+     <h1 class="text-2xl font-bold">Books</h1>
+    <a href="{{ route('books.create') }}"
+        class="text-white bg-success box-border border border-transparent hover:bg-success-strong focus:ring-4 focus:ring-success-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none w-fit self-end">
+        Add Book
+    </a>
+   </div>
     <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default ">
 
         <table class="w-full text-sm text-left rtl:text-right text-body">
@@ -20,9 +27,6 @@ Books
                     </th>
                     <th scope="col" class="px-6 py-3 font-medium">
                         View
-                    </th>
-                    <th scope="col" class="px-6 py-3 font-medium">
-                        Add
                     </th>
                     <th scope="col" class="px-6 py-3 font-medium">
                         Edit
@@ -41,20 +45,27 @@ Books
                     <td class="px-6 py-4">
                         {{ $register->description }}
                     </td>
-                    
                     <td class="px-6 py-4">
                         <a href="{{ route('books.show', $register->id) }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M9 20h13v-4H9zM2 8h5V4H2zm0 6h5v-4H2zm0 6h5v-4H2zm7-6h13v-4H9zm0-6h13V4H9z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <g fill="none" stroke="currentColor" strokeWidth="1.5">
+                                    <path
+                                        d="M21.544 11.045c.304.426.456.64.456.955c0 .316-.152.529-.456.955C20.178 14.871 16.689 19 12 19c-4.69 0-8.178-4.13-9.544-6.045C2.152 12.529 2 12.315 2 12c0-.316.152-.529.456-.955C3.822 9.129 7.311 5 12 5c4.69 0 8.178 4.13 9.544 6.045Z" />
+                                    <path d="M15 12a3 3 0 1 0-6 0a3 3 0 0 0 6 0Z" />
+                                </g>
+                            </svg>
                         </a>
                     </td>
                     <td class="px-6 py-4">
-                        <a href="{{ route('books.create')}}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"/></svg>
-                        </a>
-                    </td>
-                    <td class="px-6 py-4">
+
                         <a href="{{ route('books.edit', $register->id) }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m18.988 2.012l3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287l-3-3L8 13z"/><path fill="currentColor" d="M19 19H8.158c-.026 0-.053.01-.079.01c-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2z"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                                <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"
+                                    strokeWidth="2">
+                                    <path d="M7 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1" />
+                                    <path d="M20.385 6.585a2.1 2.1 0 0 0-2.97-2.97L9 12v3h3zM16 5l3 3" />
+                                </g>
+                            </svg>
                         </a>
                     </td>
                     <td class="px-6 py-4">

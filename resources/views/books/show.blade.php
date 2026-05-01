@@ -6,7 +6,6 @@ Detail
 
 @section('main')
 <h1 class="font-bold text-3xl">Book</h1>
-<div class="flex flex-col">
 
     <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
         <table class="w-full text-sm text-left rtl:text-right text-body">
@@ -53,5 +52,4 @@ Detail
         </table>
     </div>
 
-</div>
 @endsection

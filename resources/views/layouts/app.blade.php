@@ -18,8 +18,8 @@
 </head>
 
 <body>
-    <nav class="bg-neutral-primary fixed w-full z-20 top-0 start-0 border-b border-default">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav class="bg-neutral-950 fixed w-full z-20 top-0 start-0 border-b border-default">
+        <div class=" max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-4">
            
             <button data-collapse-toggle="navbar-default" type="button"
                 class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
@@ -30,12 +30,11 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
                 </svg>
             </button>
-            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <div class=" hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul
-                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
+                    class="text-white font-bold">
                     <li>
                         <a href="{{ route('books.index') }}"
-                            class="block py-2 px-3 text-white bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0"
                             aria-current="page">Home</a>
                     </li> 
                     
@@ -44,8 +43,10 @@
         </div>
     </nav>
 
-    <main class="m-20">
-        @yield('main')
+    <main class="pt-20 sm:pt-24  flex flex-col items-center">
+        <div class="w-full sm:w-4/5 lg:w-3/5">
+            @yield('main')
+        </div>
     </main>
 
     <footer></footer>
