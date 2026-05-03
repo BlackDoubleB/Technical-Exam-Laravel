@@ -8,6 +8,8 @@ En este caso, deberás implementar un CRUD para una entidad con autenticación b
 
 1. **HU-01** : Como usuario nuevo, quiero tener la posibilidad de registrarme en la aplicación.
 2. **HU-02** : Como usuario registrado, quiero tener la posibilidad de autenticarme en la aplicación.
+
+
 3. **HU-03** : Como usuario autenticado, quiero poder crear registros.
 4. **HU-04** : Como usuario autenticado, quiero poder listar registros con paginación.
 5. **HU-05** : Como usuario autenticado, quiero poder filtrar registros por usuario que lo creó.
