@@ -15,7 +15,7 @@ class AreaFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->randomElement(['Recursos Humanos','Logistica','Ventas','Finanzas','Operaciones','TI']),
+            'name' => $this->faker->randomElement(['Recursos Humanos','Logistica','Ventas','Finanzas','Operaciones','TI']),
             'description' => $this->faker->sentence(),
             'status' => $this->faker->boolean(90),
         ];
