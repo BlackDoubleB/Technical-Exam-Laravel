@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\SearchPostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -10,21 +11,21 @@ use Illuminate\Support\Facades\Auth;
 class PostService
 {
 
-    function searchPost(Request $request)
+    function searchPost(SearchPostRequest $request)
     {
         $query = Post::query();
-
-        if ($request->boolean('mine')) {
-            $query->where('user_id', Auth::id());
-        } else if ($request->has('user_id') && is_numeric($request->user_id)) {
-            $query->where('user_id', $request->user_id);
+        $data = $request->validated();
+        if (!empty($data['mine']) && $data['mine']) {
+            $query->where('user_id', $request->user()->id);
+        }
+        elseif (!empty($data['user_id'])) {
+            $query->where('user_id', $data['user_id']);
         }
 
-        $sort = $request->get('sort', 'desc');
+        $sort = $data['sort'] ?? 'desc';
         $query->orderBy('created_at', $sort);
 
-        $posts = $query->paginate(5);
-        return $posts;
+        return $query->paginate(5)->withQueryString();
     }
 
     function createdPost(Request $request)

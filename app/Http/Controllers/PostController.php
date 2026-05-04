@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchPostRequest;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
@@ -11,10 +12,9 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    function index(Request $request, PostService $postService)
+    function index(SearchPostRequest $request, PostService $postService)
     {
-        $posts = $postService->searchPost($request);
-        return response()->json($posts);
+        return response()->json($postService->searchPost($request));
     }
 
     function store(StorePostRequest $request, PostService $postService)
@@ -36,7 +36,7 @@ class PostController extends Controller
     function update(UpdatePostRequest $request, int $id, PostService $postService)
     {
         $post = $postService->updatePost($id, $request);
-        
+
         return response()->json([
             'message' => 'Updated data',
             'data' => $post
