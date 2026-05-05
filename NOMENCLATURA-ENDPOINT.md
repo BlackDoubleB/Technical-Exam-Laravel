@@ -83,8 +83,8 @@ Authorization: Bearer {token}
 **PUT/PATCH**
 `/api/areas/{id}`
 
-✔ mismos campos que creación  
-✔ permite omitir campos
+* mismos campos que creación  
+* permite omitir campos
 
 ---
 
@@ -95,9 +95,7 @@ Authorization: Bearer {token}
 
 #### Validaciones
 
-* No se elimina si tiene personas asociadas.
-* Retorna error 400
-
+* No se elimina si tiene personas asociadas, retorna error 400
 ---
 
 ##  PERSONAS (people)
@@ -164,7 +162,7 @@ Authorization: Bearer {token}
 **GET**
 `/api/attendances`
 
-✔ Incluye relación con persona
+* Incluye relación con persona
 
 ---
 
