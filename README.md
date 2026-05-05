@@ -23,7 +23,7 @@ http://localhost:8000/api
  
 ### 1. Registro de Usuario (HU-01)
  
-**Endpoint:** `POST api/register`
+**Endpoint:** `POST /register`
  
 **Body:**
 ```json
@@ -58,7 +58,7 @@ http://localhost:8000/api
  
 ### 2. Inicio de Sesión (HU-02)
  
-**Endpoint:** `POST api/login`
+**Endpoint:** `POST /login`
  
 **Body:**
 ```json
@@ -106,7 +106,7 @@ http://localhost:8000/api
  
 ### 3. Crear Post (HU-03)
  
-**Endpoint:** `POST api/posts`
+**Endpoint:** `POST /posts`
  
 **Body:**
 ```json
@@ -282,7 +282,7 @@ GET /posts/1
  
 **Ejemplo:**
 ```bash
-DELETE /posts/1
+DELETE api/posts/1
 ```
  
 **Respuesta Exitosa (200):**
