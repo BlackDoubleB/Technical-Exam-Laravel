@@ -23,26 +23,24 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        // 1. Validar datos
         $credentials = $request->validated();
 
-        // 2. Intentar autenticación
         if (!Auth::attempt($credentials)) {
             throw ValidationException::withMessages([
                 'email' => ['Las credenciales son incorrectas.'],
             ]);
         }
 
-        // 3. Obtener usuario autenticado
+        // Obtener usuario autenticado
         $user = $request->user();
 
         // borrar tokens anteriores
         $user->tokens()->delete();
 
-        // 4. Crear token 
+        // Crear token 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        // 5. Respuesta
+
         return response()->json([
             'message' => 'Login correcto',
             'token' => $token,
