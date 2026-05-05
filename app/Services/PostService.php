@@ -24,7 +24,7 @@ class PostService
         $sort = $data['sort'] ?? 'desc';
         $query->orderBy('created_at', $sort);
 
-       
+
         $result = $query->paginate(5)->withQueryString();
 
         if ($result->isEmpty()) {
@@ -65,7 +65,22 @@ class PostService
 
     function deletePost(int $id)
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
+        // $post->delete();
+        $post = Post::find($id);
+
+        if (!$post) {
+            return [
+                'error' => true,
+                'message' => 'The post does not exist.'
+            ];
+        }
+
         $post->delete();
+
+        return [
+            'error' => false,
+            'message' => 'Post successfully deleted'
+        ];
     }
 }

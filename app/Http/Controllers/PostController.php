@@ -22,7 +22,7 @@ class PostController extends Controller
         $postCreated = $postService->createdPost($request);
 
         return response()->json([
-            'message' => 'Post creado correctamente',
+            'message' => 'Post created successfully',
             'post' => $postCreated
         ], 201);
     }
@@ -38,7 +38,7 @@ class PostController extends Controller
         $post = $postService->updatePost($id, $request);
 
         return response()->json([
-            'message' => 'Updated data',
+            'message' => 'Updated post',
             'data' => $post
         ]);
     }
@@ -48,7 +48,7 @@ class PostController extends Controller
         $postService->deletePost($id);
 
         return response()->json([
-            'message' => 'Post eliminado'
+            'message' => 'Post deleted'
         ]);
     }
 }
