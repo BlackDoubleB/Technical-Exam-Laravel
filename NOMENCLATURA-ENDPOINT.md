@@ -219,7 +219,7 @@ Authorization: Bearer {token}
 
 #  REPORTES
 
-##  1. Reporte por área
+##  1. Reporte de áreas
 
 **GET**
 `/api/reports/areas`
@@ -227,7 +227,7 @@ Authorization: Bearer {token}
 **Query Params**
 
 ```http
-?from=2024-01-01&to=2024-01-31&area=Ventas
+?from=2024-01-01&to=2024-01-31
 ```
 
 ### Retorna
@@ -237,20 +237,30 @@ Authorization: Bearer {token}
 * Total Tardanza
 * Total Permiso
 
-Agrupado por área
+Agrupado por área dentro de un rango de fechas.
+Es necesario poner el rango de fechas.
 
 ---
-
-##  2. Reporte por persona
+##  2. Reporte por áreas
 
 **GET**
-`/api/reports/people`
+`/api/reports/areas`
 
 **Query Params**
 
 ```http
-?person_id=1&from=2024-01-01&to=2024-01-31
+?area=Ventas&from=2026-01-01&to=2026-01-31
 ```
+
+### Retorna
+
+* Total Presente
+* Total Falta
+* Total Tardanza
+* Total Permiso
+
+De un area en especifico dentro de un rango de fechas.
+
 
 ---
 
@@ -260,7 +270,7 @@ Agrupado por área
 
 ###  Restricciones
 
-* Solo puede consultar reportes por área indicada.
+* Solo puede consultar reporte por área.
 * Debe enviar:
 
 ```http
@@ -272,19 +282,25 @@ Agrupado por área
 ---
 
 #  COLABORADOR
+---
+##  Reporte por persona
+
+**GET**
+`/api/reports/people`
+
+**Query Params**
+
+```http
+?person_id=1&from=2024-01-01&to=2024-01-31
+```
+
 ###  Permisos
+* Solo puede consultar reportes por persona
 * Registrar asistencia
 
 ###  Restricciones
-
-* Solo puede consultar reportes por persona
-
-```http
-?person_id=ID
-```
-
-* No puede ver reportes globales
-* No puede acceder a áreas ni personas
+* No puede ver reportes globales.
+* No puede ver reporte por área.
 
 ---
 

@@ -2,9 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\People;
+use App\Models\Persona;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class PeoplePolicy
 {
@@ -13,7 +12,7 @@ class PeoplePolicy
         return in_array($user->role->name, ['Administrador', 'Supervisor']);
     }
 
-    public function view(User $user, Person $person): bool
+    public function view(User $user, Persona $person): bool
     {
         return in_array($user->role->name, ['Administrador', 'Supervisor']);
     }
@@ -23,12 +22,12 @@ class PeoplePolicy
         return $user->role->name === 'Administrador';
     }
 
-    public function update(User $user, Person $person): bool
+    public function update(User $user, Persona $person): bool
     {
         return $user->role->name === 'Administrador';
     }
 
-    public function delete(User $user, Person $person): bool
+    public function delete(User $user, Persona $person): bool
     {
         return $user->role->name === 'Administrador';
     }

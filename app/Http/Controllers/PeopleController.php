@@ -19,8 +19,10 @@ class PeopleController extends Controller
         return response()->json($service->getAll());
     }
 
-    public function show(Persona $persona, PeopleService $service)
+    public function show(int $id, PeopleService $service)
     {
+        $persona = Persona::findOrFail($id);
+
         $this->authorize('view', $persona);
 
         return response()->json($service->getById($persona));
@@ -38,16 +40,13 @@ class PeopleController extends Controller
         ], 201);
     }
 
-    public function update(UpdatePeopleRequest $request, Persona $persona, PeopleService $service)
+    public function update($id, UpdatePeopleRequest $request, PeopleService $service)
     {
+        $persona = Persona::findOrFail($id);
         $this->authorize('update', $persona);
-
+        
         $persona = $service->update($persona, $request->validated());
-
-        return response()->json([
-            'message' => 'Persona actualizada correctamente',
-            'data' => $persona
-        ]);
+        return response()->json(['message' => 'Persona actualizada correctamente', 'data' => $persona]);
     }
 
     public function destroy(Persona $persona, PeopleService $service)

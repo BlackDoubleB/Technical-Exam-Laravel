@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Services;
+
 use App\Models\Persona;
+
 class PeopleService
 {
-     public function getAll()
+    public function getAll()
     {
         return Persona::with('area')->get();
     }
@@ -22,7 +24,7 @@ class PeopleService
     public function update(Persona $person, array $data)
     {
         $person->update($data);
-        return $person;
+        return $person->refresh()->load('area');
     }
 
     public function delete(Persona $person)

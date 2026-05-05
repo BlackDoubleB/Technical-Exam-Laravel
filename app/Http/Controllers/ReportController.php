@@ -8,43 +8,69 @@ use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
-     public function byArea(Request $request, ReportService $service)
+    public function byArea(Request $request, ReportService $service)
     {
         $user = Auth::user();
 
-        if ($user->role->name === 'Colaborador') {
-            abort(403, 'No autorizado');
+        $from = $request->query('from');
+        $to = $request->query('to');
+        $area = $request->query('area');
+
+
+        if ($user->role->name === 'Administrador') {
+            return response()->json(
+                $service->reportByArea($from, $to, $area)
+            );
         }
 
-        if ($user->role->name === 'Supervisor' && !$request->area) {
-            abort(400, 'Debe enviar el nombre del área');
+
+        if ($user->role->name === 'Supervisor') {
+            if (!$area) {
+                return response()->json([
+                    'message' => 'Debe enviar el parámetro area'
+                ], 400);
+            }
+
+            return response()->json(
+                $service->reportByArea($from, $to, $area)
+            );
         }
 
-        return response()->json(
-            $service->reportByArea(
-                $request->from,
-                $request->to,
-                $request->area
-            )
-        );
+        return response()->json([
+            'message' => 'No autorizado'
+        ], 403);
     }
 
     public function byPerson(Request $request, ReportService $service)
     {
-        $user = Auth::user();
+        $user =  Auth::user();
+
+        $from = $request->query('from');
+        $to = $request->query('to');
+        $personId = $request->query('person_id');
 
         if ($user->role->name === 'Colaborador') {
-            if (!$request->person_id) {
-                abort(400, 'Debe enviar su person_id');
+
+            if (!$personId) {
+                return response()->json([
+                    'message' => 'Debe enviar person_id'
+                ], 400);
+            }
+
+            try {
+                $data = $service->reportByPerson($personId, $from, $to);
+
+                return response()->json($data);
+            } catch (\Exception $e) {
+
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], 404);
             }
         }
 
-        return response()->json(
-            $service->reportByPerson(
-                $request->person_id,
-                $request->from,
-                $request->to
-            )
-        );
+        return response()->json([
+            'message' => 'No autorizado'
+        ], 403);
     }
 }
