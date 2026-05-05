@@ -49,7 +49,7 @@ class ReportController extends Controller
         $to = $request->query('to');
         $personId = $request->query('person_id');
 
-        if ($user->role->name === 'Colaborador') {
+        if ($user->role->name === 'Administrador') {
 
             if (!$personId) {
                 return response()->json([

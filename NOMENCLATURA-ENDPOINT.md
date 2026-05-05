@@ -291,7 +291,7 @@ De un area en especifico dentro de un rango de fechas.
 **Query Params**
 
 ```http
-?person_id=1&from=2024-01-01&to=2024-01-31
+?person_id=1&from=2024-01-01&to=2026-01-31
 ```
 
 ###  Permisos
@@ -302,6 +302,9 @@ De un area en especifico dentro de un rango de fechas.
 * No puede ver reportes globales.
 * No puede ver reporte por área.
 
+###  Validaciones
+* Error 404 cuando no existe el colaborador.
+* Error 404 cuando no hay asistencias en un rango de fechas.
 ---
 
 #  ERRORES
@@ -312,6 +315,4 @@ De un area en especifico dentro de un rango de fechas.
 | 403    | No autorizado         |
 | 404    | Recurso no encontrado |
 | 422    | Error de validación   |
-
-
 ---
