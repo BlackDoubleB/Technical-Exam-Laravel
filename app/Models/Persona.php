@@ -28,4 +28,6 @@ class Persona extends Model
     {
         return $this->hasMany(Asistencia::class, 'person_id');
     }
+
+    
 }

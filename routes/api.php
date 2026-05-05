@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PersonController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ReportController;
@@ -14,10 +13,10 @@ Route::post('/login', [AuthController::class, 'login']);
 // AREAS
 Route::apiResource('areas', AreaController::class)->middleware('auth:sanctum');
 
-// PEOPLE (personas)
+// PEOPLE
 Route::apiResource('people', PeopleController::class)->middleware('auth:sanctum');
 
-// ATTENDANCES (asistencias)
+// ATTENDANCES 
 Route::apiResource('attendances', AttendanceController::class)->middleware('auth:sanctum');
 
 // REPORTES

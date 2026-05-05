@@ -1,26 +1,12 @@
 <?php
 
 namespace App\Providers;
-
-use App\Http\Controllers\AttendanceController;
-use App\Models\Area;
-use App\Models\Asistencia;
-use App\Models\Persona;
-use App\Policies\AreaPolicy;
-use App\Policies\PeoplePolicy;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    protected $policies = [
-        Area::class => AreaPolicy::class,
-        Asistencia::class => AttendanceController::class,
-        Persona::class => PeoplePolicy::class,
-    ];
-
+  
     public function register(): void
     {
         //
@@ -31,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+         Gate::policy(\App\Models\Asistencia::class, \App\Policies\AttendancePolicy::class);
+         Gate::policy(\App\Models\Area::class, \App\Policies\AreaPolicy::class);
+         Gate::policy(\App\Models\Persona::class, \App\Policies\PeoplePolicy::class);
     }
 }

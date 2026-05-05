@@ -25,4 +25,8 @@ class Asistencia extends Model
     {
         return $this->belongsTo(Persona::class, 'person_id');
     }
+    public function persona()
+    {
+        return $this->belongsTo(Persona::class, 'person_id');
+    }
 }

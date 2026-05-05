@@ -2,9 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Attendance;
+use App\Models\Asistencia;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class AttendancePolicy
 {
@@ -16,7 +15,7 @@ class AttendancePolicy
         ]);
     }
 
-    public function view(User $user, Attendance $attendance): bool
+    public function view(User $user, Asistencia $attendance): bool
     {
         return in_array($user->role->name, [
             'Administrador',
@@ -26,10 +25,10 @@ class AttendancePolicy
 
     public function create(User $user): bool
     {
-        return true; // todos pueden marcar asistencia
+        return true; 
     }
 
-    public function update(User $user, Attendance $attendance): bool
+    public function update(User $user, Asistencia $attendance): bool
     {
         return in_array($user->role->name, [
             'Administrador',
@@ -37,7 +36,7 @@ class AttendancePolicy
         ]);
     }
 
-    public function delete(User $user, Attendance $attendance): bool
+    public function delete(User $user, Asistencia $attendance): bool
     {
         return in_array($user->role->name, [
             'Administrador',

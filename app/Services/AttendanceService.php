@@ -4,7 +4,6 @@ namespace App\Services;
 namespace App\Services;
 
 use App\Models\Asistencia;
-use App\Models\Attendance;
 
 class AttendanceService
 {

@@ -1,143 +1,301 @@
-# README: Guía de Diseño de APIs REST para Desarrolladores Frontend
-
-Este documento tiene como objetivo proporcionar una guía clara y práctica para que los desarrolladores frontend comprendan cómo interactuar con APIs RESTful. A continuación, se detallan las mejores prácticas y conceptos clave que debes conocer al trabajar con endpoints REST.
+# NOMENCLATURA-ENDPOINT
 
 ---
 
-## **1. Nomenclatura de Endpoints**
+# AUTENTICACIÓN
 
-### **Recomendaciones Generales**
-1. **Usa sustantivos en plural**: Los recursos deben nombrarse en plural para representar colecciones. Ejemplo:
-    - `/users` → Todos los usuarios
-    - `/events` → Todos los eventos
+## LOGIN
 
-2. **Evita verbos en los nombres de recursos**: Los verbos se manejan a través de los métodos HTTP. Ejemplo:
-    - Incorrecto: `/getUsers`
-    - Correcto: `/users` (usando `GET`)
+**POST**
+`http://127.0.0.1:8000/login`
 
-3. **Versionado**: Incluye la versión de la API en el endpoint para facilitar futuras actualizaciones:
-    - `/v1/users`
-    - `/v2/events`
+**Body**
 
----
+```json
+{
+  "email": "admin@example.com",
+  "password": "password"
+}
+```
 
-## **2. Métodos HTTP y sus Usos**
+### Usuarios de prueba
 
-| **Método HTTP** | **Acción**                     | **Ejemplo de Endpoint**       |
-|------------------|--------------------------------|-------------------------------|
-| `GET`           | Obtener un recurso o lista     | `GET /users`                  |
-| `POST`          | Crear un nuevo recurso         | `POST /users`                 |
-| `PUT`           | Actualizar un recurso completo | `PUT /users/{id}`             |
-| `PATCH`         | Actualizar parcialmente        | `PATCH /users/{id}`           |
-| `DELETE`        | Eliminar un recurso            | `DELETE /users/{id}`          |
+* `admin@example.com` → Administrador
+* `supervisor@example.com` → Supervisor
+* `colaborador@example.com` → Colaborador
 
 ---
 
-## **3. Estructura de Endpoints**
+# AUTORIZACIÓN
 
-### **Recursos Principales**
-- Representan colecciones de datos:
-  - `/users` → Todos los usuarios
-  - `/events` → Todos los eventos
-  - `/categories` → Todas las categorías
+Todos los endpoints (excepto login) requieren:
 
-### **Recursos Específicos**
-- Accede a un recurso específico usando su ID:
-  - `/users/{id}` → Usuario específico
-  - `/events/{id}` → Evento específico
-
-### **Relaciones entre Recursos**
-- Si un recurso está relacionado con otro, puedes anidarlos lógicamente:
-  - `/users/{id}/orders` → Órdenes de un usuario
-  - `/events/{id}/attendees` → Asistentes de un evento
-
-### **Acciones Personalizadas**
-- Para acciones que no encajan en los métodos HTTP estándar, usa sufijos descriptivos:
-  - `/users/{id}/activate` → Activar un usuario
-  - `/events/{id}/publish` → Publicar un evento
+```http
+Authorization: Bearer {token}
+```
 
 ---
 
-## **4. Filtros, Búsqueda y Paginación**
 
-Para filtrar, buscar o paginar datos, usa **query parameters** en lugar de modificar el nombre del endpoint:
+# ADMINISTRADOR
 
-- Filtrar por categoría:
-  ```
-  GET /events?category=concert
-  ```
+### 1. Listar áreas
 
-- Paginar resultados:
-  ```
-  GET /users?page=2&limit=10
-  ```
+**GET**
+`/api/areas`
 
 ---
 
-## **5. Categorías de Recursos**
+### 2. Obtener área por ID
 
-### **Collection**
-- Representa una colección de recursos.
-- Métodos comunes: `GET` (listar), `POST` (crear).
-  - Ejemplo: `GET /films` → Obtener todas las películas.
+**GET**
+`/api/areas/{id}`
 
-### **Instance/Document**
-- Representa una instancia específica de un recurso.
-- Métodos comunes: `GET` (obtener), `PUT` (actualizar), `DELETE` (eliminar).
-  - Ejemplo: `GET /films/{id}` → Obtener una película específica.
-
-### **Controller**
-- Representa acciones específicas que no necesariamente modifican un recurso.
-- Usa siempre el método `POST`.
-  - Ejemplo: `POST /loans/simulate` → Simular un préstamo.
+*  Retorna 404 si no existe
 
 ---
 
-## **6. Granularidad de los Servicios**
+### 3. Crear área
 
-La granularidad define cuánto cubre un endpoint:
-- **Grano grueso**: Un solo endpoint maneja múltiples casos.
-  - Ejemplo: `POST /films` → Crear cualquier tipo de película.
+**POST**
+`/api/areas`
 
-- **Grano fino**: Múltiples endpoints específicos.
-  - Ejemplo: 
-     - `POST /sci-fi-films` → Crear una película de ciencia ficción.
-     - `POST /action-films` → Crear una película de acción.
+**Body**
 
-Elige la granularidad según tus necesidades.
+```json
+{
+  "name": "Recursos Humanos",
+  "description": "Área de personal",
+  "status": 1
+}
+```
 
----
+#### Validaciones
 
-## **7. Anti-patrones Comunes**
-
-Evita estos errores al trabajar con APIs REST:
-
-1. **Usar verbos en los nombres de recursos**:
-    - Incorrecto: `GET /updateCustomer`
-    - Correcto: `PUT /customers/{id}`
-
-2. **Usar query params para acciones**:
-    - Incorrecto: `GET /services?op=update_customer`
-    - Correcto: `PUT /customers/{id}`
-
-3. **Usar nombres en singular**:
-    - Incorrecto: `/customer`
-    - Correcto: `/customers`
-
-4. **Incluir extensiones de archivo**:
-    - Incorrecto: `/car-invoice.pdf`
-    - Correcto: `/car-invoice`
+* `name` → requerido
+* `status` → requerido (boolean)
+* `description` → opcional
 
 ---
 
-## **8. Recomendaciones Finales**
+### 4. Actualizar área
 
-- **Nombres en minúsculas**: Usa guiones medios (`-`) para separar palabras. Ejemplo: `/car-invoice`.
-- **Independencia del formato**: No incluyas extensiones como `.json` o `.pdf`.
-- **Explora APIs públicas**: Revisa APIs bien diseñadas como la [API de Marvel](https://developer.marvel.com/) para inspirarte.
+**PUT/PATCH**
+`/api/areas/{id}`
+
+✔ mismos campos que creación  
+✔ permite omitir campos
 
 ---
 
-## **9. Conclusión**
+### 5. Eliminar área
 
-Diseñar y consumir APIs RESTful requiere seguir convenciones claras y consistentes. Al seguir estas mejores prácticas, podrás interactuar eficientemente con APIs backend y construir aplicaciones frontend robustas y escalables.
+**DELETE**
+`/api/areas/{id}`
+
+#### Validaciones
+
+* No se elimina si tiene personas asociadas.
+* Retorna error 400
+
+---
+
+##  PERSONAS (people)
+
+### 1. Listar personas
+
+**GET**
+`/api/people`
+
+---
+
+### 2. Obtener persona
+
+**GET**
+`/api/people/{id}`
+
+---
+
+### 3. Crear persona
+
+**POST**
+`/api/people`
+
+**Body**
+
+```json
+{
+  "first_name": "Juan",
+  "last_name": "Perez",
+  "dni_id": "12345678",
+  "email": "juan@example.com",
+  "area_id": 1
+}
+```
+
+####  Validaciones
+
+* `first_name` → requerido
+* `last_name` → requerido
+* `dni_id` → único
+* `email` → único
+* `area_id` → debe existir
+
+---
+
+### 4. Actualizar persona
+
+**PUT/PATCH**
+`/api/people/{id}`
+
+---
+
+### 5. Eliminar persona
+
+**DELETE**
+`/api/people/{id}`
+
+---
+
+##  ASISTENCIAS
+
+### 1. Listar asistencias
+
+**GET**
+`/api/attendances`
+
+✔ Incluye relación con persona
+
+---
+
+### 2. Obtener asistencia
+
+**GET**
+`/api/attendances/{id}`
+
+---
+
+### 3. Registrar asistencia
+
+**POST**
+`/api/attendances`
+
+**Body**
+
+```json
+{
+  "person_id": 1,
+  "date": "2024-01-01",
+  "status": "Presente"
+}
+```
+
+####  Validaciones
+
+* `person_id` → requerido, existe
+* `date` → requerido
+* `status` → enum:
+  * Presente
+  * Falta
+  * Tardanza
+  * Permiso
+* No permite duplicados por: persona + fecha
+
+---
+
+### 4. Actualizar asistencia
+
+**PUT/PATCH**
+`/api/attendances/{id}`
+
+---
+
+### 5. Eliminar asistencia
+
+**DELETE**
+`/api/attendances/{id}`
+
+---
+
+#  REPORTES
+
+##  1. Reporte por área
+
+**GET**
+`/api/reports/areas`
+
+**Query Params**
+
+```http
+?from=2024-01-01&to=2024-01-31&area=Ventas
+```
+
+### Retorna
+
+* Total Presente
+* Total Falta
+* Total Tardanza
+* Total Permiso
+
+Agrupado por área
+
+---
+
+##  2. Reporte por persona
+
+**GET**
+`/api/reports/people`
+
+**Query Params**
+
+```http
+?person_id=1&from=2024-01-01&to=2024-01-31
+```
+
+---
+
+#  SUPERVISOR
+###  Permisos
+* CRUD de asistencias  
+
+###  Restricciones
+
+* Solo puede consultar reportes por área indicada.
+* Debe enviar:
+
+```http
+?area=NombreArea
+```
+
+* No puede consultar global
+
+---
+
+#  COLABORADOR
+###  Permisos
+* Registrar asistencia
+
+###  Restricciones
+
+* Solo puede consultar reportes por persona
+
+```http
+?person_id=ID
+```
+
+* No puede ver reportes globales
+* No puede acceder a áreas ni personas
+
+---
+
+#  ERRORES
+
+| Código | Descripción           |
+| ------ | --------------------- |
+| 401    | No autenticado        |
+| 403    | No autorizado         |
+| 404    | Recurso no encontrado |
+| 422    | Error de validación   |
+
+
+---
