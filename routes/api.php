@@ -16,11 +16,11 @@ Route::post('/login', [AuthController::class, 'login']);
 // HU-07 (Orden Fecha)
 Route::get('/posts', [PostController::class, 'index'])->middleware('auth:sanctum');
 
-// HU-03: crear registro
-Route::post('/posts', [PostController::class, 'store'])->middleware('auth:sanctum');
-
 // Obtener un post 
 Route::get('/posts/{id}', [PostController::class, 'show'])->middleware('auth:sanctum');
+
+// HU-03: crear registro
+Route::post('/posts', [PostController::class, 'store'])->middleware('auth:sanctum');
 
 // HU-08: actualizar 
 Route::patch('/posts/{id}', [PostController::class, 'update'])->middleware('auth:sanctum');
