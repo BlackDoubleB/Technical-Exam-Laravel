@@ -17,15 +17,24 @@ class PostService
         $data = $request->validated();
         if (!empty($data['mine']) && $data['mine']) {
             $query->where('user_id', $request->user()->id);
-        }
-        elseif (!empty($data['user_id'])) {
+        } elseif (!empty($data['user_id'])) {
             $query->where('user_id', $data['user_id']);
         }
 
         $sort = $data['sort'] ?? 'desc';
         $query->orderBy('created_at', $sort);
 
-        return $query->paginate(5)->withQueryString();
+       
+        $result = $query->paginate(5)->withQueryString();
+
+        if ($result->isEmpty()) {
+            return [
+                'message' => 'No hay registros',
+                'data' => []
+            ];
+        }
+
+        return $result;
     }
 
     function createdPost(Request $request)
