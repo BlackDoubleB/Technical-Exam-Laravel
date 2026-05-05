@@ -65,14 +65,12 @@ class PostService
 
     function deletePost(int $id)
     {
-        // $post = Post::findOrFail($id);
-        // $post->delete();
         $post = Post::find($id);
 
         if (!$post) {
             return [
                 'error' => true,
-                'message' => 'The post does not exist.'
+                'message' => 'El post no existe'
             ];
         }
 
@@ -80,7 +78,7 @@ class PostService
 
         return [
             'error' => false,
-            'message' => 'Post successfully deleted'
+            'message' => 'Post eliminado correctamente'
         ];
     }
 }

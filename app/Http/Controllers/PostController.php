@@ -45,10 +45,21 @@ class PostController extends Controller
 
     function destroy(int $id, PostService $postService)
     {
-        $postService->deletePost($id);
+        // $postService->deletePost($id);
+
+        // return response()->json([
+        //     'message' => 'Post deleted'
+        // ]);
+        $result = $postService->deletePost($id);
+
+        if ($result['error']) {
+            return response()->json([
+                'message' => $result['message']
+            ], 404);
+        }
 
         return response()->json([
-            'message' => 'Post deleted'
+            'message' => $result['message']
         ]);
     }
 }
