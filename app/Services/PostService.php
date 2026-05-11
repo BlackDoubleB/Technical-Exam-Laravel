@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
+use App\DTOs\CreatePostDTO;
 use App\Http\Requests\SearchPostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostService
 {
@@ -37,15 +39,25 @@ class PostService
         return $result;
     }
 
-    function createdPost(Request $request)
+    function createdPost(CreatePostDTO $dto)
     {
-        $data = $request->validated();
+        // $data = $request->validated();
 
-        $post = Post::create([
-            ...$data,
-            'user_id' => Auth::id(),
-        ]);
-        return $post;
+        // $post = Post::create([
+        //     ...$data,
+        //     'user_id' => Auth::id(),
+        // ]);
+        // return $post;
+        $result = DB::select(
+            'CALL crear_post(?, ?, ?)',
+            [
+                $dto->title,
+                $dto->content,
+                $dto->userId
+            ]
+        );
+
+        return $result[0];
     }
 
     function searchPostId(string $id)

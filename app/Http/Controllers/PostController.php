@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\CreatePostDTO;
 use App\Http\Requests\SearchPostRequest;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\Post;
 use App\Services\PostService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+
 
 class PostController extends Controller
 {
@@ -19,7 +19,21 @@ class PostController extends Controller
 
     function store(StorePostRequest $request, PostService $postService)
     {
-        $postCreated = $postService->createdPost($request);
+        // $postCreated = $postService->createdPost($request);
+
+        // return response()->json([
+        //     'message' => 'Post created successfully',
+        //     'post' => $postCreated
+        // ], 201);
+        $data = $request->validated();
+
+        $dto = new CreatePostDTO(
+            title: $data['title'],
+            content: $data['content'],
+            userId: Auth::id()
+        );
+
+        $postCreated = $postService->createdPost($dto);
 
         return response()->json([
             'message' => 'Post created successfully',
